@@ -33,6 +33,7 @@ function TranslateTagTo4ComponentVersion {
 function MakeNotesForRange {
     param (
         [Parameter(Mandatory, Position=0)]
+        [AllowEmptyCollection()]
         [string[]]$SEARCH_TAGS,
         [Parameter(Mandatory, Position=1)]
         [string]$FROM_TAG,
