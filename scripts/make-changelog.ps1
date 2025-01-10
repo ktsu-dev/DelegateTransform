@@ -159,11 +159,9 @@ $TAG_INDEX = 0
 $TAGS = git tag --list --sort=-v:refname
 
 if ($null -eq $TAGS) {
+    $PREVIOUS_TAG = 'v0.0.0'
     $TAGS = @()
-}
-
-$PREVIOUS_TAG = 'v0.0.0'
-if ($TAGS.Length -gt` 0) {
+} else {
     $PREVIOUS_TAG = $TAGS[0]
 }
 

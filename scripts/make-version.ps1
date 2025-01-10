@@ -6,9 +6,11 @@ param (
 Set-PSDebug -Trace 1
 
 # find the last version that was released
-$LAST_TAG = (git tag --list --sort=-v:refname)[0]
-if ($null -eq $LAST_TAG) {
+$ALL_TAGS = git tag --list --sort=-v:refname
+if ($null -eq $ALL_TAGS) {
     $LAST_TAG = 'v1.0.0-pre.0'
+} else {
+    $LAST_TAG = $ALL_TAGS[0]
 }
 $LAST_VERSION = $LAST_TAG -replace 'v', ''
 $IS_PRERELEASE = $LAST_VERSION.Contains('-')
