@@ -3,6 +3,8 @@ param (
     [string]$github_sha = "" # SHA of the commit
 )
 
+Set-PSDebug -Trace 1
+
 # find the last version that was released
 $LAST_TAG = (git tag --list --sort=-v:refname)[0]
 if ($null -eq $LAST_TAG) {
