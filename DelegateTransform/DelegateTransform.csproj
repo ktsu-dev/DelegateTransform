@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="ktsu.ScopedAction" Version="1.0.14" />
+  </ItemGroup>
+</Project>
