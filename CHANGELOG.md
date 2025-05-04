@@ -1,3 +1,9 @@
+## v1.1.2 (patch)
+
+Changes since v1.1.1:
+
+- Update README with detailed library introduction, features, usage examples, and API reference; change project SDK references in .csproj files to ktsu.Sdk.Lib and ktsu.Sdk.Test. ([@matt-edmondson](https://github.com/matt-edmondson))
+
 ## v1.1.1 (patch)
 
 Changes since v1.1.0:
