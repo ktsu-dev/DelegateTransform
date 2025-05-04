@@ -1,3 +1,7 @@
+// Copyright (c) ktsu.dev
+// All rights reserved.
+// Licensed under the MIT license.
+
 namespace ktsu.DelegateTransform.Test;
 
 [TestClass]
@@ -6,10 +10,10 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithActionRefModifiesInput()
 	{
-		int input = 5;
-		int expected = 10;
+		var input = 5;
+		var expected = 10;
 
-		int result = DelegateTransform.With(input, (ref int x) => x *= 2);
+		var result = DelegateTransform.With(input, (ref int x) => x *= 2);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -17,7 +21,7 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithActionRefThrowsArgumentNullException()
 	{
-		int input = 5;
+		var input = 5;
 
 		Assert.ThrowsException<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
 	}
@@ -25,10 +29,10 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncModifiesInput()
 	{
-		int input = 5;
-		int expected = 15;
+		var input = 5;
+		var expected = 15;
 
-		int result = DelegateTransform.With(input, x => x + 10);
+		var result = DelegateTransform.With(input, x => x + 10);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -36,7 +40,7 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncThrowsArgumentNullException()
 	{
-		int input = 5;
+		var input = 5;
 
 		Assert.ThrowsException<ArgumentNullException>(() => input = DelegateTransform.With(input, (Func<int, int>)null!));
 	}
@@ -44,10 +48,10 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncRefModifiesInput()
 	{
-		int input = 5;
-		int expected = 25;
+		var input = 5;
+		var expected = 25;
 
-		int result = DelegateTransform.With(input, (ref int x) => x * x);
+		var result = DelegateTransform.With(input, (ref int x) => x * x);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -55,7 +59,7 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncRefThrowsArgumentNullException()
 	{
-		int input = 5;
+		var input = 5;
 
 		Assert.ThrowsException<ArgumentNullException>(() => DelegateTransform.With(input, (FuncRef<int>)null!));
 	}
