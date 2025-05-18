@@ -14,6 +14,22 @@ Changes since v1.1.3-pre.15:
 - Enhance GitHub Actions workflow by enabling LFS and fetching tags ([@matt-edmondson](https://github.com/matt-edmondson))
 - Initial commit ([@matt-edmondson](https://github.com/matt-edmondson))
 - Refactor tag handling in changelog and version scripts to ensure default values are set correctly when no tags are found ([@matt-edmondson](https://github.com/matt-edmondson))
+## v1.1.3-pre.16 (prerelease)
+
+Changes since v1.1.3-pre.15:
+
+- Add AllowEmptyCollection attribute to SEARCH_TAGS parameter in MakeNotesForRange function ([@matt-edmondson](https://github.com/matt-edmondson))
+- Update README with detailed library introduction, features, usage examples, and API reference; change project SDK references in .csproj files to ktsu.Sdk.Lib and ktsu.Sdk.Test. ([@matt-edmondson](https://github.com/matt-edmondson))
+- Enable debugging trace in changelog and version scripts ([@matt-edmondson](https://github.com/matt-edmondson))
+- Set default version to 'v1.0.0-pre.0' if no tags are found ([@matt-edmondson](https://github.com/matt-edmondson))
+- Apply new editorconfig ([@matt-edmondson](https://github.com/matt-edmondson))
+- Update packages ([@matt-edmondson](https://github.com/matt-edmondson))
+- Fix formatting issues and handle empty tag scenarios in changelog script ([@matt-edmondson](https://github.com/matt-edmondson))
+- Remove Directory.Build.props and Directory.Build.targets files; add copyright headers to DelegateTransform and DelegateTransformTests; update variable declarations in tests for consistency; delete unused PowerShell scripts for metadata and version management. ([@matt-edmondson](https://github.com/matt-edmondson))
+- Add LICENSE template ([@matt-edmondson](https://github.com/matt-edmondson))
+- Enhance GitHub Actions workflow by enabling LFS and fetching tags ([@matt-edmondson](https://github.com/matt-edmondson))
+- Initial commit ([@matt-edmondson](https://github.com/matt-edmondson))
+- Refactor tag handling in changelog and version scripts to ensure default values are set correctly when no tags are found ([@matt-edmondson](https://github.com/matt-edmondson))
 ## v1.1.3-pre.15 (prerelease)
 
 Changes since v1.1.3-pre.14:
