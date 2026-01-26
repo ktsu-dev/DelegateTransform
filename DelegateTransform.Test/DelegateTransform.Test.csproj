@@ -1,9 +1,15 @@
-﻿<Project Sdk="MSTest.Sdk">
+<Project>
+    <Sdk Name="MSTest.Sdk" />
     <Sdk Name="ktsu.Sdk" />
 
     <PropertyGroup>
+        <IsTestProject>true</IsTestProject>
         <TargetFramework>net10.0</TargetFramework>
         <TargetFrameworks></TargetFrameworks>
         <NoWarn>$(NoWarn);CA1062;</NoWarn>
     </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DelegateTransform\DelegateTransform.csproj" />
+    </ItemGroup>
 </Project>

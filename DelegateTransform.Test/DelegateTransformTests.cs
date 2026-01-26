@@ -2,18 +2,24 @@
 // All rights reserved.
 // Licensed under the MIT license.
 
+[assembly: Parallelize(Workers = 0, Scope = ExecutionScope.MethodLevel)]
+
 namespace ktsu.DelegateTransform.Test;
 
 [TestClass]
 public class DelegateTransformTests
 {
+	private static void DoubleValue(ref int x) => x *= 2;
+
+	private static int SquareValue(ref int x) => x * x;
+
 	[TestMethod]
 	public void WithActionRefModifiesInput()
 	{
-		var input = 5;
-		var expected = 10;
+		int input = 5;
+		int expected = 10;
 
-		var result = DelegateTransform.With(input, (ref int x) => x *= 2);
+		int result = DelegateTransform.With(input, DoubleValue);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -21,18 +27,18 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithActionRefThrowsArgumentNullException()
 	{
-		var input = 5;
+		int input = 5;
 
-		Assert.ThrowsException<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
 	}
 
 	[TestMethod]
 	public void WithFuncModifiesInput()
 	{
-		var input = 5;
-		var expected = 15;
+		int input = 5;
+		int expected = 15;
 
-		var result = DelegateTransform.With(input, x => x + 10);
+		int result = DelegateTransform.With(input, x => x + 10);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -40,18 +46,18 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncThrowsArgumentNullException()
 	{
-		var input = 5;
+		int input = 5;
 
-		Assert.ThrowsException<ArgumentNullException>(() => input = DelegateTransform.With(input, (Func<int, int>)null!));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (Func<int, int>)null!));
 	}
 
 	[TestMethod]
 	public void WithFuncRefModifiesInput()
 	{
-		var input = 5;
-		var expected = 25;
+		int input = 5;
+		int expected = 25;
 
-		var result = DelegateTransform.With(input, (ref int x) => x * x);
+		int result = DelegateTransform.With(input, SquareValue);
 
 		Assert.AreEqual(expected, result);
 	}
@@ -59,8 +65,8 @@ public class DelegateTransformTests
 	[TestMethod]
 	public void WithFuncRefThrowsArgumentNullException()
 	{
-		var input = 5;
+		int input = 5;
 
-		Assert.ThrowsException<ArgumentNullException>(() => DelegateTransform.With(input, (FuncRef<int>)null!));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, (FuncRef<int>)null!));
 	}
 }

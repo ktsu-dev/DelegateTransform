@@ -12,13 +12,20 @@
 
 DelegateTransform is a utility library that provides methods for transforming values using various delegate types in C#. It offers a clean and efficient way to apply transformations using `ActionRef`, `Func`, and `FuncRef` delegates, making your code more readable and functional.
 
+**Important**: All `With` methods return a new transformed value - they never mutate the original input. This provides functional programming semantics even when using reference-based delegates.
+
 ## Features
 
-- **ActionRef Transformations**: Modify values by reference using action delegates
+- **ActionRef Transformations**: Modify copies of values by reference using action delegates
 - **Func Transformations**: Transform values using function delegates
-- **FuncRef Transformations**: Transform values by reference using function delegates
-- **Fluent API**: Chain multiple transformations together
+- **FuncRef Transformations**: Transform values by reference using function delegates that return values
+- **Copy-on-Transform**: Original values are never mutated
 - **Generic Implementation**: Works with any value or reference type
+
+## Supported Frameworks
+
+- .NET 10.0, 9.0, 8.0, 7.0, 6.0
+- .NET Standard 2.1
 
 ## Installation
 
@@ -44,43 +51,43 @@ dotnet add package ktsu.DelegateTransform
 
 ### With ActionRef
 
-The `With` method can be used with an `ActionRef` delegate to modify the input value by reference:
+The `With` method can be used with an `ActionRef<T>` delegate to apply a transformation by reference and return the result:
 
 ```csharp
 using ktsu.DelegateTransform;
 
 int input = 5;
-DelegateTransform.With(input, (ref int x) => x *= 2);
-// input is now 10
+int result = DelegateTransform.With(input, (ref int x) => x *= 2);
+// result is 10, input is still 5 (original unchanged)
 ```
 
 ### With Func
 
-The `With` method can be used with a `Func` delegate to transform the input value:
+The `With` method can be used with a `Func<T, T>` delegate to transform the input value:
 
 ```csharp
 using ktsu.DelegateTransform;
 
 int input = 5;
-int result = DelegateTransform.With(input, (int x) => x * 2);
+int result = DelegateTransform.With(input, x => x * 2);
 // result is 10
 ```
 
 ### With FuncRef
 
-The `With` method can be used with a `FuncRef` delegate to transform the input value by reference:
+The `With` method can be used with a `FuncRef<T>` delegate to transform the input value by reference:
 
 ```csharp
 using ktsu.DelegateTransform;
 
 int input = 5;
-DelegateTransform.With(input, (ref int x) => x *= 2);
-// input is now 10
+int result = DelegateTransform.With(input, (ref int x) => x * x);
+// result is 25, input is still 5 (original unchanged)
 ```
 
 ### Chaining Transformations
 
-You can chain multiple transformations for more complex operations:
+You can chain multiple transformations by nesting calls:
 
 ```csharp
 using ktsu.DelegateTransform;
@@ -89,10 +96,9 @@ using ktsu.DelegateTransform;
 string input = "example";
 
 // Chain of transformations
-var result = DelegateTransform
-    .With(input, s => s.ToUpper())                      // EXAMPLE
-    .With(s => s.Replace("EX", "**"))                   // **AMPLE
-    .With(s => s + " transformed");                     // **AMPLE transformed
+string step1 = DelegateTransform.With(input, s => s.ToUpper());           // "EXAMPLE"
+string step2 = DelegateTransform.With(step1, s => s.Replace("EX", "**")); // "**AMPLE"
+string result = DelegateTransform.With(step2, s => s + " transformed");   // "**AMPLE transformed"
 
 Console.WriteLine(result); // Outputs: **AMPLE transformed
 ```
@@ -104,16 +110,16 @@ using ktsu.DelegateTransform;
 
 var person = new Person { Name = "John", Age = 30 };
 
-// Transform using ActionRef
-DelegateTransform.With(person, (ref Person p) => {
+// Transform using ActionRef (for reference types, the object is modified)
+Person updatedPerson = DelegateTransform.With(person, (ref Person p) => {
     p.Name = p.Name.ToUpper();
     p.Age += 1;
 });
 
-Console.WriteLine($"{person.Name}, {person.Age}"); // Outputs: JOHN, 31
+Console.WriteLine($"{updatedPerson.Name}, {updatedPerson.Age}"); // Outputs: JOHN, 31
 
-// Transform using Func
-var description = DelegateTransform.With(person, p => 
+// Transform using Func to create a string description
+string description = DelegateTransform.With(person, p =>
     $"{p.Name} is {p.Age} years old");
 
 Console.WriteLine(description); // Outputs: JOHN is 31 years old
@@ -121,60 +127,54 @@ Console.WriteLine(description); // Outputs: JOHN is 31 years old
 
 ## API Reference
 
+### Delegate Types
+
+```csharp
+// Custom delegate for actions on references
+public delegate void ActionRef<T>(ref T item);
+
+// Custom delegate for functions on references
+public delegate T FuncRef<T>(ref T item);
+```
+
 ### `DelegateTransform` Static Class
 
 The main class providing transformation methods.
 
 #### Methods
 
-| Name | Parameters | Return Type | Description |
-|------|------------|-------------|-------------|
-| `With<T>` | `T value, Action<ref T> transform` | `T` | Transforms a value by reference using an action delegate |
-| `With<T, TResult>` | `T value, Func<T, TResult> transform` | `TResult` | Transforms a value using a function delegate |
-| `With<T>` | `T value, Func<ref T, T> transform` | `T` | Transforms a value by reference using a function delegate |
-| `With<T>` | `ref T value, Action<ref T> transform` | `void` | Transforms a reference to a value using an action delegate |
+| Method | Parameters | Return Type | Description |
+|--------|------------|-------------|-------------|
+| `With<T>` | `T input, ActionRef<T> delegate` | `T` | Creates a copy, applies the action by reference, returns the modified copy |
+| `With<T>` | `T input, Func<T, T> delegate` | `T` | Applies a function to the input and returns the result |
+| `With<T>` | `T input, FuncRef<T> delegate` | `T` | Passes input by reference to the function and returns the result |
 
-## Advanced Usage
+All methods throw `ArgumentNullException` if the delegate is null.
+
+## Design Principles
+
+### Copy-on-Transform
+
+The library follows a functional programming pattern where the original input is never mutated:
+
+```csharp
+public static T With<T>(T input, ActionRef<T> @delegate)
+{
+    Ensure.NotNull(@delegate);
+
+    T output = input;  // Creates a copy
+    @delegate(ref output);
+    return output;
+}
+```
+
+This ensures predictable behavior and prevents side effects on the original values.
 
 ### Performance Considerations
 
-Using reference-based transformations (`ActionRef`, `FuncRef`) can be more performant for large structs as they avoid unnecessary copying:
+For value types (structs), a copy is made before transformation. For large structs where you want to avoid copying, consider using the `FuncRef<T>` overload which passes by reference and returns the modified value.
 
-```csharp
-// For large structs, using ref can be more efficient
-var largeStruct = new LargeStruct(1000000);
-
-// This avoids copying the struct
-DelegateTransform.With(ref largeStruct, (ref LargeStruct s) => {
-    s.Process();
-});
-```
-
-### Custom Delegate Types
-
-You can easily extend DelegateTransform with your own delegate types:
-
-```csharp
-// Define a custom delegate type
-public delegate void MyCustomDelegate<T>(ref T value, string parameter);
-
-// Extension method for DelegateTransform
-public static class DelegateTransformExtensions
-{
-    public static T WithCustom<T>(this T value, MyCustomDelegate<T> transform, string parameter)
-    {
-        T result = value;
-        transform(ref result, parameter);
-        return result;
-    }
-}
-
-// Usage
-var result = 5.WithCustom((ref int x, string p) => {
-    x *= int.Parse(p);
-}, "3");
-// result is 15
-```
+For reference types (classes), the "copy" is actually a copy of the reference, so the underlying object can be modified. If you need true immutability for reference types, create a new instance within your delegate.
 
 ## Contributing
 
