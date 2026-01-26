@@ -1,9 +1,6 @@
-## v1.1.4 (patch)
+## v1.1.5-pre.1 (prerelease)
 
-Changes since v1.1.3:
+Changes since v1.1.4:
 
-- Update project configuration files, add new workflows, and enhance SDK management ([@matt-edmondson](https://github.com/matt-edmondson))
-- Refactor DelegateTransform methods for null checking and update project dependencies ([@matt-edmondson](https://github.com/matt-edmondson))
-- Update project SDKs in DelegateTransform and DelegateTransform.Test to MSTest and Microsoft.NET.Sdk ([@matt-edmondson](https://github.com/matt-edmondson))
-- Add CLAUDE.md for project guidance and documentation ([@matt-edmondson](https://github.com/matt-edmondson))
-- Update .editorconfig, .gitignore, .runsettings, and PSBuild.psm1 for improved configurations and functionality ([@matt-edmondson](https://github.com/matt-edmondson))
+- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
