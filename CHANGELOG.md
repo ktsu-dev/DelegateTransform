@@ -1,5 +1,8 @@
 ## v1.1.5-pre.1 (prerelease)
 
+Incremental prerelease update.
+## v1.1.5-pre.1 (prerelease)
+
 Changes since v1.1.4:
 
 - Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
