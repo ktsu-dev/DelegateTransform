@@ -1,5 +1,6 @@
-﻿
-<Project Sdk="ktsu.Sdk.Lib">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="ktsu.Sdk" />
+
   <ItemGroup>
     <PackageReference Include="ktsu.ScopedAction" />
   </ItemGroup>
