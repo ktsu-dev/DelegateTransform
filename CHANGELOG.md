@@ -1,3 +1,6 @@
+## v1.1.5
+
+No significant changes detected since v1.1.5.
 ## v1.1.5 (patch)
 
 Changes since v1.1.4:
@@ -14,10 +17,7 @@ Changes since v1.1.5-pre.1:
 - Sync global.json ([@ktsu[bot]](https://github.com/ktsu[bot]))
 ## v1.1.5-pre.1 (prerelease)
 
-Changes since v1.1.4:
-
-- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
+Incremental prerelease update.
 ## v1.1.4 (patch)
 
 Changes since v1.1.3:
