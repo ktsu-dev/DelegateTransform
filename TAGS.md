@@ -1,0 +1,1 @@
+delegate transform;functional programming;value transformations;copy on transform;ref delegates;immutable;higher order functions;netstandard;dotnet;csharp
