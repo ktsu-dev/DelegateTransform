@@ -1,3 +1,9 @@
+## v1.1.10 (patch)
+
+Changes since v1.1.9:
+
+- Bump the ktsu group with 1 update ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
 ## v1.1.9 (patch)
 
 Changes since v1.1.8:
@@ -6,9 +12,7 @@ Changes since v1.1.8:
 
 ## v1.1.9-pre.1 (prerelease)
 
-Changes since v1.1.8:
-
-- Sync .github\workflows\dotnet.yml ([@KtsuTools](https://github.com/KtsuTools))
+No significant changes detected since v1.1.9.
 
 ## v1.1.8 (patch)
 
