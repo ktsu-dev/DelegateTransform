@@ -2,11 +2,13 @@
 
 > A utility library for transforming values using delegates in C#.
 
-[![License](https://img.shields.io/github/license/ktsu-dev/DelegateTransform)](https://github.com/ktsu-dev/DelegateTransform/blob/main/LICENSE.md)
-[![NuGet](https://img.shields.io/nuget/v/ktsu.DelegateTransform.svg)](https://www.nuget.org/packages/ktsu.DelegateTransform/)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/ktsu.DelegateTransform.svg)](https://www.nuget.org/packages/ktsu.DelegateTransform/)
-[![Build Status](https://github.com/ktsu-dev/DelegateTransform/workflows/build/badge.svg)](https://github.com/ktsu-dev/DelegateTransform/actions)
-[![GitHub Stars](https://img.shields.io/github/stars/ktsu-dev/DelegateTransform?style=social)](https://github.com/ktsu-dev/DelegateTransform/stargazers)
+[![License](https://img.shields.io/github/license/ktsu-dev/DelegateTransform.svg?label=License&logo=nuget)](LICENSE.md)
+[![NuGet Version](https://img.shields.io/nuget/v/ktsu.DelegateTransform?label=Stable&logo=nuget)](https://nuget.org/packages/ktsu.DelegateTransform)
+[![NuGet Version](https://img.shields.io/nuget/vpre/ktsu.DelegateTransform?label=Latest&logo=nuget)](https://nuget.org/packages/ktsu.DelegateTransform)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/ktsu.DelegateTransform?label=Downloads&logo=nuget)](https://nuget.org/packages/ktsu.DelegateTransform)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ktsu-dev/DelegateTransform?label=Commits&logo=github)](https://github.com/ktsu-dev/DelegateTransform/commits/main)
+[![GitHub contributors](https://img.shields.io/github/contributors/ktsu-dev/DelegateTransform?label=Contributors&logo=github)](https://github.com/ktsu-dev/DelegateTransform/graphs/contributors)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ktsu-dev/DelegateTransform/dotnet.yml?label=Build&logo=github)](https://github.com/ktsu-dev/DelegateTransform/actions)
 
 ## Introduction
 
