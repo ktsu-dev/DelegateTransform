@@ -8,7 +8,7 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/ktsu.DelegateTransform?label=Downloads&logo=nuget)](https://nuget.org/packages/ktsu.DelegateTransform)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ktsu-dev/DelegateTransform?label=Commits&logo=github)](https://github.com/ktsu-dev/DelegateTransform/commits/main)
 [![GitHub contributors](https://img.shields.io/github/contributors/ktsu-dev/DelegateTransform?label=Contributors&logo=github)](https://github.com/ktsu-dev/DelegateTransform/graphs/contributors)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ktsu-dev/DelegateTransform/dotnet.yml?label=Build&logo=github)](https://github.com/ktsu-dev/DelegateTransform/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ktsu-dev/DelegateTransform/dotnet.yml?branch=main&label=Build&logo=github)](https://github.com/ktsu-dev/DelegateTransform/actions)
 
 ## Introduction
 
