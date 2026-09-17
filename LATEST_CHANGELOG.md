@@ -1,6 +1,7 @@
-## v1.1.33 (patch)
+## v1.1.34 (patch)
 
-Changes since v1.1.32:
+Changes since v1.1.33:
 
-- Gate Dependabot auto-merge on CI actually being green ([@Claude](https://github.com/Claude))
+- Bump MSTest.Sdk from 4.4.0 to 4.4.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump the ktsu group with 10 updates ([@dependabot[bot]](https://github.com/dependabot[bot]))
 
