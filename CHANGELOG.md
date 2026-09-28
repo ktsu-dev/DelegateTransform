@@ -1,6 +1,8 @@
-## v1.1.40
+## v1.1.41-pre.1 (prerelease)
 
-No significant changes detected since v1.1.40.
+Changes since v1.1.40:
+
+- Bump Polyfill from 11.4.0 to 11.4.1 ([@dependabot[bot]](https://github.com/dependabot[bot]))
 
 ## v1.1.40 (patch)
 
@@ -134,8 +136,10 @@ Changes since v1.1.19:
 Changes since v1.1.18:
 
 - Fix ktsu.Sdk 2.27 analyzer errors: KTSU0001/0002/0007 [patch] ([@matt-edmondson](https://github.com/matt-edmondson))
+- Sync .github\workflows\dotnet.yml ([@KtsuTools](https://github.com/KtsuTools))
 - Sync .editorconfig ([@KtsuTools](https://github.com/KtsuTools))
 - Sync global.json ([@KtsuTools](https://github.com/KtsuTools))
+- Sync .github\workflows\dotnet.yml ([@KtsuTools](https://github.com/KtsuTools))
 
 ## v1.1.18 (patch)
 
@@ -201,10 +205,13 @@ Changes since v1.1.9:
 Changes since v1.1.8:
 
 - Add TAGS.md with NuGet package tags ([@matt-edmondson](https://github.com/matt-edmondson))
+- Sync .github\workflows\dotnet.yml ([@KtsuTools](https://github.com/KtsuTools))
 
 ## v1.1.9-pre.1 (prerelease)
 
-No significant changes detected since v1.1.9.
+Changes since v1.1.8:
+
+- Sync .github\workflows\dotnet.yml ([@KtsuTools](https://github.com/KtsuTools))
 
 ## v1.1.8 (patch)
 
@@ -218,7 +225,11 @@ Changes since v1.1.7:
 
 ## v1.1.8-pre.1 (prerelease)
 
-No significant changes detected since v1.1.8.
+Changes since v1.1.7:
+
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.7 (patch)
 
@@ -305,20 +316,17 @@ Changes since v1.1.6-pre.1:
 
 ## v1.1.6-pre.1 (prerelease)
 
-No significant changes detected since v1.1.6.
+Changes since v1.1.5:
+
+- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync global.json ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync COPYRIGHT.md ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.5 (patch)
 
 Changes since v1.1.4:
 
 - Remove .github\workflows\project.yml ([@matt-edmondson](https://github.com/matt-edmondson))
-- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync global.json ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync .github\workflows\dotnet.yml ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync .gitignore ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
-- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.5-pre.2 (prerelease)
 
@@ -332,7 +340,10 @@ Changes since v1.1.5-pre.1:
 
 ## v1.1.5-pre.1 (prerelease)
 
-No significant changes detected since v1.1.5.
+Changes since v1.1.4:
+
+- Merge remote-tracking branch 'refs/remotes/origin/main' ([@ktsu[bot]](https://github.com/ktsu[bot]))
+- Sync scripts\update-winget-manifests.ps1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.4 (patch)
 
@@ -431,7 +442,9 @@ No significant changes detected since v1.1.3-pre.1.
 
 ## v1.1.3-pre.1 (prerelease)
 
-No significant changes detected since v1.1.3.
+Changes since v1.1.2:
+
+- Sync scripts\PSBuild.psm1 ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.2 (patch)
 
@@ -450,7 +463,9 @@ Changes since v1.1.2-pre.1:
 
 ## v1.1.2-pre.1 (prerelease)
 
-No significant changes detected since v1.1.2.
+Changes since v1.1.1:
+
+- Sync .editorconfig ([@ktsu[bot]](https://github.com/ktsu[bot]))
 
 ## v1.1.1 (patch)
 
@@ -576,7 +591,7 @@ Changes since v1.0.1-pre.1:
 
 ## v1.0.1-pre.1 (prerelease)
 
-No significant changes detected since v1.0.1.
+No significant changes detected since v1.0.0.
 
 ## v1.0.0 (major)
 
@@ -584,6 +599,7 @@ No significant changes detected since v0.0.1-pre.1.
 
 ## v0.0.1-pre.1 (prerelease)
 
+- Enhance GitHub Actions workflow by enabling LFS and fetching tags ([@matt-edmondson](https://github.com/matt-edmondson))
 - Add AllowEmptyCollection attribute to SEARCH_TAGS parameter in MakeNotesForRange function ([@matt-edmondson](https://github.com/matt-edmondson))
 - Refactor tag handling in changelog and version scripts to ensure default values are set correctly when no tags are found ([@matt-edmondson](https://github.com/matt-edmondson))
 - Enable debugging trace in changelog and version scripts ([@matt-edmondson](https://github.com/matt-edmondson))
