@@ -59,19 +59,19 @@ The `With` method can be used with an `ActionRef<T>` delegate to apply a transfo
 using ktsu.DelegateTransform;
 
 int input = 5;
-int result = DelegateTransform.With(input, (ref int x) => x *= 2);
+int result = input.With((ref int x) => x *= 2);
 // result is 10, input is still 5 (original unchanged)
 ```
 
 ### With Func
 
-The `With` method can be used with a `Func<T, T>` delegate to transform the input value:
+The `With` method can be used with a `Func<T, TResult>` delegate to transform the input value. The result can be the same type as the input or a different one:
 
 ```csharp
 using ktsu.DelegateTransform;
 
 int input = 5;
-int result = DelegateTransform.With(input, x => x * 2);
+int result = input.With(x => x * 2);
 // result is 10
 ```
 
@@ -83,24 +83,21 @@ The `With` method can be used with a `FuncRef<T>` delegate to transform the inpu
 using ktsu.DelegateTransform;
 
 int input = 5;
-int result = DelegateTransform.With(input, (ref int x) => x * x);
+int result = input.With((ref int x) => x * x);
 // result is 25, input is still 5 (original unchanged)
 ```
 
 ### Chaining Transformations
 
-You can chain multiple transformations by nesting calls:
+Every `With` method is an extension method that returns the transformed value, so calls chain fluently:
 
 ```csharp
 using ktsu.DelegateTransform;
 
-// Starting value
-string input = "example";
-
-// Chain of transformations
-string step1 = DelegateTransform.With(input, s => s.ToUpper());           // "EXAMPLE"
-string step2 = DelegateTransform.With(step1, s => s.Replace("EX", "**")); // "**AMPLE"
-string result = DelegateTransform.With(step2, s => s + " transformed");   // "**AMPLE transformed"
+string result = "example"
+    .With(s => s.ToUpper())            // "EXAMPLE"
+    .With(s => s.Replace("EX", "**"))  // "**AMPLE"
+    .With(s => s + " transformed");    // "**AMPLE transformed"
 
 Console.WriteLine(result); // Outputs: **AMPLE transformed
 ```
@@ -113,7 +110,7 @@ using ktsu.DelegateTransform;
 var person = new Person { Name = "John", Age = 30 };
 
 // Transform using ActionRef (for reference types, the object is modified)
-Person updatedPerson = DelegateTransform.With(person, (ref Person p) => {
+Person updatedPerson = person.With((ref Person p) => {
     p.Name = p.Name.ToUpper();
     p.Age += 1;
 });
@@ -121,8 +118,7 @@ Person updatedPerson = DelegateTransform.With(person, (ref Person p) => {
 Console.WriteLine($"{updatedPerson.Name}, {updatedPerson.Age}"); // Outputs: JOHN, 31
 
 // Transform using Func to create a string description
-string description = DelegateTransform.With(person, p =>
-    $"{p.Name} is {p.Age} years old");
+string description = person.With(p => $"{p.Name} is {p.Age} years old");
 
 Console.WriteLine(description); // Outputs: JOHN is 31 years old
 ```
@@ -141,15 +137,17 @@ public delegate T FuncRef<T>(ref T item);
 
 ### `DelegateTransform` Static Class
 
-The main class providing transformation methods.
+The static class holding the `With` extension methods. Call them on the value, as in `input.With(...)`.
+Naming the class, as in `DelegateTransform.With(input, ...)`, does not compile from other `ktsu.*`
+namespaces, where `DelegateTransform` resolves to the namespace of the same name.
 
 #### Methods
 
 | Method | Parameters | Return Type | Description |
 |--------|------------|-------------|-------------|
-| `With<T>` | `T input, ActionRef<T> delegate` | `T` | Creates a copy, applies the action by reference, returns the modified copy |
-| `With<T>` | `T input, Func<T, T> delegate` | `T` | Applies a function to the input and returns the result |
-| `With<T>` | `T input, FuncRef<T> delegate` | `T` | Passes input by reference to the function and returns the result |
+| `With<T>` | `this T input, ActionRef<T> delegate` | `T` | Creates a copy, applies the action by reference, returns the modified copy |
+| `With<T, TResult>` | `this T input, Func<T, TResult> delegate` | `TResult` | Applies a function to the input and returns the result, which may be a different type |
+| `With<T>` | `this T input, FuncRef<T> delegate` | `T` | Passes input by reference to the function and returns the result |
 
 All methods throw `ArgumentNullException` if the delegate is null.
 
@@ -160,7 +158,7 @@ All methods throw `ArgumentNullException` if the delegate is null.
 The library follows a functional programming pattern where the original input is never mutated:
 
 ```csharp
-public static T With<T>(T input, ActionRef<T> @delegate)
+public static T With<T>(this T input, ActionRef<T> @delegate)
 {
     Ensure.NotNull(@delegate);
 

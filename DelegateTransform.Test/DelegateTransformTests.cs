@@ -64,7 +64,8 @@ public class DelegateTransformTests
 	public void WithFuncRefThrowsArgumentNullException()
 	{
 		int input = 5;
+		FuncRef<int> nullDelegate = null!;
 
-		_ = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, (FuncRef<int>)null!));
+		_ = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, nullDelegate));
 	}
 }

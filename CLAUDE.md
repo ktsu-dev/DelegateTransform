@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **DelegateTransform** is a utility library providing methods for transforming values using various delegate types in C#. It's part of the ktsu.dev ecosystem and offers three distinct transformation patterns:
 
 - **ActionRef<T>** - Modify values by reference using action delegates
-- **Func<T, T>** - Transform values using standard function delegates
+- **Func<T, TResult>** - Transform values using standard function delegates, optionally to another type
 - **FuncRef<T>** - Transform values by reference using function delegates that return values
 
 ## Build and Test Commands
@@ -64,20 +64,22 @@ public delegate T FuncRef<T>(ref T item);
 
 ### Transformation Methods
 
-All transformations use the static `DelegateTransform.With<T>()` method with three overloads:
+All transformations are `With` extension methods on the static `DelegateTransform` class, with three overloads:
 
-1. **ActionRef overload** - `With<T>(T input, ActionRef<T> delegate)`
+1. **ActionRef overload** - `With<T>(this T input, ActionRef<T> delegate)`
    - Creates a copy of the input value
    - Applies the action to the copy by reference
    - Returns the modified copy
    - Original input remains unchanged
 
-2. **Func overload** - `With<T>(T input, Func<T, T> delegate)`
+2. **Func overload** - `With<T, TResult>(this T input, Func<T, TResult> delegate)`
    - Standard functional transformation
-   - Takes input, applies function, returns new value
+   - Takes input, applies function, returns new value, which may be of another type
    - Most straightforward pattern
+   - There is deliberately no separate `Func<T, T>` overload: it would be ambiguous with this one,
+     and `TResult` infers to `T` when the function returns the input type
 
-3. **FuncRef overload** - `With<T>(T input, FuncRef<T> delegate)`
+3. **FuncRef overload** - `With<T>(this T input, FuncRef<T> delegate)`
    - Passes input by reference to the function
    - Function can modify and return the reference
    - Useful for performance with large structs
@@ -87,7 +89,7 @@ All transformations use the static `DelegateTransform.With<T>()` method with thr
 Important architectural decision: The ActionRef and FuncRef overloads that take value parameters (not `ref` parameters) intentionally create a copy before transformation:
 
 ```csharp
-public static T With<T>(T input, ActionRef<T> @delegate)
+public static T With<T>(this T input, ActionRef<T> @delegate)
 {
     Ensure.NotNull(@delegate);
 
@@ -114,7 +116,9 @@ int result = value
     .With(x => x.Transform3());
 ```
 
-However, standard C# extension method syntax doesn't directly support this - users typically chain through repeated calls to `DelegateTransform.With()`.
+Callers should use the extension form. From code in another `ktsu.*` namespace the simple name
+`DelegateTransform` resolves to the namespace `ktsu.DelegateTransform`, so `DelegateTransform.With(...)`
+fails with CS0234 there. `ConsumerNamespaceTests.cs` lives in `ktsu.Consumer` to keep that form covered.
 
 ## Project Structure
 
@@ -125,6 +129,7 @@ DelegateTransform/
 │   └── DelegateTransform.csproj    # Uses Microsoft.NET.Sdk with ktsu.Sdk
 ├── DelegateTransform.Test/         # Test project
 │   ├── DelegateTransformTests.cs   # MSTest tests for all overloads
+│   ├── ConsumerNamespaceTests.cs   # README examples compiled from outside ktsu.DelegateTransform
 │   └── DelegateTransform.Test.csproj  # Uses MSTest.Sdk with ktsu.Sdk
 ├── Directory.Packages.props        # Central Package Management
 └── DelegateTransform.sln
@@ -165,7 +170,7 @@ Each overload has two tests:
 ### Adding a New Delegate Type
 
 1. Define the delegate type in [DelegateTransform.cs](DelegateTransform/DelegateTransform.cs)
-2. Add corresponding `With<T>()` overload to the `DelegateTransform` class
+2. Add a corresponding `With` extension overload to the `DelegateTransform` class
 3. Include null check: `Ensure.NotNull(@delegate);`
 4. Add tests in [DelegateTransformTests.cs](DelegateTransform.Test/DelegateTransformTests.cs)
 
