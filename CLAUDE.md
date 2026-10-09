@@ -133,7 +133,6 @@ DelegateTransform/
 ### Dependencies
 
 The library has the following dependencies:
-- **ktsu.ScopedAction** - External library dependency
 - **Polyfill** - Provides cross-framework compatibility (e.g., `Ensure.NotNull()`)
 - **Microsoft.SourceLink.GitHub** - Source linking for debugging
 - **Microsoft.SourceLink.AzureRepos.Git** - Source linking for debugging
