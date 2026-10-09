@@ -14,7 +14,7 @@ public class PackageDependencyTests
 	[TestMethod]
 	public void LibraryDependsOnlyOnPackagesItUses()
 	{
-		string depsPath = Path.Combine(AppContext.BaseDirectory, "ktsu.DelegateTransform.Test.deps.json");
+		string depsPath = Path.Join(AppContext.BaseDirectory, "ktsu.DelegateTransform.Test.deps.json");
 		using JsonDocument deps = JsonDocument.Parse(File.ReadAllText(depsPath));
 
 		foreach (JsonProperty library in deps.RootElement.GetProperty("libraries").EnumerateObject())
