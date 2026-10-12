@@ -25,6 +25,7 @@ public delegate T FuncRef<T>(ref T item);
 /// <c>ktsu.*</c> namespace the simple name <c>DelegateTransform</c> resolves to the namespace rather than
 /// this class, so the extension form is the one that works everywhere.
 /// </remarks>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S3236:Caller information arguments should not be provided explicitly", Justification = "The captured expression for a verbatim identifier is \"@delegate\", which isn't the parameter's name; nameof(@delegate) gives \"delegate\".")]
 public static class DelegateTransform
 {
 	/// <summary>
@@ -37,7 +38,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static T With<T>(this T input, ActionRef<T> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		T output = input;
 		@delegate(ref output);
@@ -54,7 +55,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static T With<T>(this T input, FuncRef<T> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		return @delegate(ref input);
 	}
@@ -70,7 +71,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static TResult With<T, TResult>(this T input, Func<T, TResult> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		return @delegate(input);
 	}
