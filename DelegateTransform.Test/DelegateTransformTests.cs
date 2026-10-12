@@ -27,7 +27,8 @@ public class DelegateTransformTests
 	{
 		int input = 5;
 
-		_ = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
+		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
+		Assert.AreEqual("delegate", ex.ParamName);
 	}
 
 	[TestMethod]
@@ -46,7 +47,8 @@ public class DelegateTransformTests
 	{
 		int input = 5;
 
-		_ = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (Func<int, int>)null!));
+		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (Func<int, int>)null!));
+		Assert.AreEqual("delegate", ex.ParamName);
 	}
 
 	[TestMethod]
@@ -66,6 +68,7 @@ public class DelegateTransformTests
 		int input = 5;
 		FuncRef<int> nullDelegate = null!;
 
-		_ = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, nullDelegate));
+		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, nullDelegate));
+		Assert.AreEqual("delegate", ex.ParamName);
 	}
 }

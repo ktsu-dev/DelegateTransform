@@ -37,7 +37,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static T With<T>(this T input, ActionRef<T> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		T output = input;
 		@delegate(ref output);
@@ -54,7 +54,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static T With<T>(this T input, FuncRef<T> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		return @delegate(ref input);
 	}
@@ -70,7 +70,7 @@ public static class DelegateTransform
 	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
 	public static TResult With<T, TResult>(this T input, Func<T, TResult> @delegate)
 	{
-		Ensure.NotNull(@delegate);
+		Ensure.NotNull(@delegate, nameof(@delegate));
 
 		return @delegate(input);
 	}
