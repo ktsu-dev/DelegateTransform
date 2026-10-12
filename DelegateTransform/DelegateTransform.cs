@@ -25,6 +25,7 @@ public delegate T FuncRef<T>(ref T item);
 /// <c>ktsu.*</c> namespace the simple name <c>DelegateTransform</c> resolves to the namespace rather than
 /// this class, so the extension form is the one that works everywhere.
 /// </remarks>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S3236:Caller information arguments should not be provided explicitly", Justification = "The captured expression for a verbatim identifier is \"@delegate\", which isn't the parameter's name; nameof(@delegate) gives \"delegate\".")]
 public static class DelegateTransform
 {
 	/// <summary>
