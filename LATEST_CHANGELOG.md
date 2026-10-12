@@ -1,7 +1,7 @@
-## v2.0.1 (patch)
+## v2.0.2 (patch)
 
-Changes since v2.0.0:
+Changes since v2.0.1:
 
-- Join the deps.json path rather than combining it ([@Claude](https://github.com/Claude))
-- Drop the unused ktsu.ScopedAction package reference [patch] ([@Claude](https://github.com/Claude))
+- Suppress S3236 for the explicit nameof(@delegate) argument ([@Claude](https://github.com/Claude))
+- Name the delegate parameter without its verbatim @ in ArgumentNullException [patch] ([@Claude](https://github.com/Claude))
 
