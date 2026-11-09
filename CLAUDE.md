@@ -4,11 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**DelegateTransform** is a utility library providing methods for transforming values using various delegate types in C#. It's part of the ktsu.dev ecosystem and offers three distinct transformation patterns:
+**DelegateTransform** is a utility library providing methods for transforming values using various delegate types in C#. It's part of the ktsu.dev ecosystem and offers two transformation patterns:
 
 - **ActionRef<T>** - Modify values by reference using action delegates
 - **Func<T, TResult>** - Transform values using standard function delegates, optionally to another type
-- **FuncRef<T>** - Transform values by reference using function delegates that return values
 
 ## Build and Test Commands
 
@@ -52,19 +51,16 @@ dotnet pack --configuration Release --output ./staging
 
 ### Delegate Types
 
-The library defines two custom delegate types that complement .NET's standard delegates:
+The library defines one custom delegate type that complements .NET's standard delegates:
 
 ```csharp
 // Custom delegate for actions on references
 public delegate void ActionRef<T>(ref T item);
-
-// Custom delegate for functions on references
-public delegate T FuncRef<T>(ref T item);
 ```
 
 ### Transformation Methods
 
-All transformations are `With` extension methods on the static `DelegateTransform` class, with three overloads:
+All transformations are `With` extension methods on the static `DelegateTransform` class, with two overloads:
 
 1. **ActionRef overload** - `With<T>(this T input, ActionRef<T> delegate)`
    - Creates a copy of the input value
@@ -79,14 +75,14 @@ All transformations are `With` extension methods on the static `DelegateTransfor
    - There is deliberately no separate `Func<T, T>` overload: it would be ambiguous with this one,
      and `TResult` infers to `T` when the function returns the input type
 
-3. **FuncRef overload** - `With<T>(this T input, FuncRef<T> delegate)`
-   - Passes input by reference to the function
-   - Function can modify and return the reference
-   - Useful for performance with large structs
+There is deliberately no `FuncRef<T>` (`T FuncRef<T>(ref T)`) overload. A ref lambda with an expression body,
+such as `(ref int x) => x++`, converts to both `ActionRef<T>` and a value-returning ref delegate, and C# prefers the
+one that returns a value, so the in-place change was silently discarded (#79). Keep every `With` overload's ref
+delegate `void`-returning.
 
 ### Design Pattern: Copy-on-Transform
 
-Important architectural decision: The ActionRef and FuncRef overloads that take value parameters (not `ref` parameters) intentionally create a copy before transformation:
+Important architectural decision: The ActionRef overload takes a value parameter (not a `ref` parameter) and intentionally creates a copy before transformation:
 
 ```csharp
 public static T With<T>(this T input, ActionRef<T> @delegate)
