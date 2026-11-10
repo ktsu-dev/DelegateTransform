@@ -18,8 +18,6 @@ public class ConsumerNamespaceTests
 
 	private static void DoubleValue(ref int x) => x *= 2;
 
-	private static int SquareValue(ref int x) => x * x;
-
 	private static void HaveBirthday(ref Person p)
 	{
 		p.Name = p.Name.ToUpperInvariant();
@@ -46,13 +44,13 @@ public class ConsumerNamespaceTests
 	}
 
 	[TestMethod]
-	public void FuncRefExtensionTransformsInput()
+	public void ActionRefExtensionKeepsExpressionBodiedChange()
 	{
 		int input = 5;
 
-		int result = input.With(SquareValue);
+		int result = input.With((ref x) => x *= 2);
 
-		Assert.AreEqual(25, result);
+		Assert.AreEqual(10, result);
 		Assert.AreEqual(5, input);
 	}
 

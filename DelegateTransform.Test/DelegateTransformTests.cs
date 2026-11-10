@@ -9,8 +9,6 @@ public class DelegateTransformTests
 {
 	private static void DoubleValue(ref int x) => x *= 2;
 
-	private static int SquareValue(ref int x) => x * x;
-
 	[TestMethod]
 	public void WithActionRefModifiesInput()
 	{
@@ -26,8 +24,9 @@ public class DelegateTransformTests
 	public void WithActionRefThrowsArgumentNullException()
 	{
 		int input = 5;
+		ActionRef<int> nullDelegate = null!;
 
-		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, (ActionRef<int>)null!));
+		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => input = DelegateTransform.With(input, nullDelegate));
 		Assert.AreEqual("delegate", ex.ParamName);
 	}
 
@@ -52,23 +51,26 @@ public class DelegateTransformTests
 	}
 
 	[TestMethod]
-	public void WithFuncRefModifiesInput()
+	public void WithActionRefKeepsExpressionBodiedLambdaChange()
 	{
 		int input = 5;
-		int expected = 25;
 
-		int result = DelegateTransform.With(input, SquareValue);
+		// An expression body has type int, so this lambda used to bind to an overload that returned x++'s
+		// value (the old 5) and threw the change away. It must reach the ActionRef overload (#79).
+		int result = input.With((ref x) => x++);
 
-		Assert.AreEqual(expected, result);
+		Assert.AreEqual(6, result);
+		Assert.AreEqual(5, input);
 	}
 
 	[TestMethod]
-	public void WithFuncRefThrowsArgumentNullException()
+	public void WithActionRefKeepsExpressionBodiedCallChange()
 	{
 		int input = 5;
-		FuncRef<int> nullDelegate = null!;
 
-		ArgumentNullException ex = Assert.ThrowsExactly<ArgumentNullException>(() => DelegateTransform.With(input, nullDelegate));
-		Assert.AreEqual("delegate", ex.ParamName);
+		int result = input.With((ref x) => Interlocked.Exchange(ref x, 7));
+
+		Assert.AreEqual(7, result);
+		Assert.AreEqual(5, input);
 	}
 }

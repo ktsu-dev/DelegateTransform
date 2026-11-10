@@ -10,14 +10,6 @@ namespace ktsu.DelegateTransform;
 public delegate void ActionRef<T>(ref T item);
 
 /// <summary>
-/// Represents a delegate that performs a function on a reference to an item of type <typeparamref name="T"/> and returns a value of type <typeparamref name="T"/>.
-/// </summary>
-/// <typeparam name="T">The type of the item.</typeparam>
-/// <param name="item">The item to perform the function on.</param>
-/// <returns>The result of the function.</returns>
-public delegate T FuncRef<T>(ref T item);
-
-/// <summary>
 /// Provides extension methods for applying delegates to input items.
 /// </summary>
 /// <remarks>
@@ -43,21 +35,6 @@ public static class DelegateTransform
 		T output = input;
 		@delegate(ref output);
 		return output;
-	}
-
-	/// <summary>
-	/// Applies a <see cref="FuncRef{T}"/> delegate to the input item and returns the result.
-	/// </summary>
-	/// <typeparam name="T">The type of the input item.</typeparam>
-	/// <param name="input">The input item.</param>
-	/// <param name="delegate">The delegate to apply to the input item.</param>
-	/// <returns>The result of the delegate.</returns>
-	/// <exception cref="ArgumentNullException">Thrown when the delegate is null.</exception>
-	public static T With<T>(this T input, FuncRef<T> @delegate)
-	{
-		Ensure.NotNull(@delegate, nameof(@delegate));
-
-		return @delegate(ref input);
 	}
 
 	/// <summary>
