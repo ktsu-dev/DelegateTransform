@@ -1,3 +1,9 @@
+## v3.0.1-pre.2 (prerelease)
+
+Changes since v3.0.1-pre.1:
+
+- Bump MSTest.Sdk from 4.5.2 to 4.5.3 (dependabot[bot])
+
 ## v3.0.1-pre.1 (prerelease)
 
 Changes since v3.0.0:
